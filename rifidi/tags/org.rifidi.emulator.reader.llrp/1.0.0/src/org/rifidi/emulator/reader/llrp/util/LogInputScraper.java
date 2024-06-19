@@ -12,6 +12,7 @@
  */
 package org.rifidi.emulator.reader.llrp.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileReader;
@@ -41,7 +42,7 @@ public class LogInputScraper {
 		try {
 	        BufferedReader in = new BufferedReader(new FileReader(fileName));
 	        String str;
-	        while ((str = in.readLine()) != null) {
+	        while ((str = BoundedLineReader.readLine(in, 5_000_000)) != null) {
 	            process(str);
 	        }
 	        in.close();

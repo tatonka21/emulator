@@ -12,6 +12,7 @@
 
 package org.rifidi.utilities.device;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -255,7 +256,7 @@ public class IPCreator {
 					InputStreamReader stdinreader = new InputStreamReader(stdin);
 					BufferedReader br = new BufferedReader(stdinreader);
 
-					while ((line = br.readLine()) != null) {
+					while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
 						line.charAt(0);
 					}
 					
@@ -373,7 +374,7 @@ public class IPCreator {
 			InputStreamReader stdinreader = new InputStreamReader(stdin);
 			BufferedReader br = new BufferedReader(stdinreader);
 
-			while ((line = br.readLine()) != null) {
+			while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
 				config.add(line);
 			}
 			
@@ -446,7 +447,7 @@ public class IPCreator {
 			InputStreamReader isr = new InputStreamReader(stdin);
 			BufferedReader br = new BufferedReader(isr);
 
-			while ((line = br.readLine()) != null) {
+			while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
 				/*
 				 * Leave out lines which contain PRIMARY, because they cause
 				 * trouble

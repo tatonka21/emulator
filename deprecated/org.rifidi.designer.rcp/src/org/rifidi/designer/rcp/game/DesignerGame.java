@@ -10,6 +10,7 @@
  */
 package org.rifidi.designer.rcp.game;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -399,7 +400,7 @@ public class DesignerGame extends SWTDefaultImplementor implements
 		StringBuilder sb = new StringBuilder();
 		String line = null;
 		try {
-			while ((line = br.readLine()) != null) {
+			while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
 				sb.append(line + "\n");
 			}
 		} catch (IOException e) {
