@@ -12,6 +12,7 @@
 
 package org.rifidi.utilities.device;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -247,7 +248,7 @@ public class IPCreator {
 			try {
 				String[] cmdString = { "netsh", "-f",
 						configFile.getAbsolutePath() };
-				Process proc = this.runtimeenv.exec(cmdString);
+				Process proc = SystemCommand.runCommand(this.runtimeenv, cmdString);
 				try {
 					proc.waitFor();
 					String line;
@@ -368,7 +369,7 @@ public class IPCreator {
 
 		/* call the exec() method and return the result into a vector */
 		try {
-			Process proc = this.runtimeenv.exec(cmd);
+			Process proc = SystemCommand.runCommand(this.runtimeenv, cmd);
 			InputStream stdin = proc.getInputStream();
 			InputStreamReader stdinreader = new InputStreamReader(stdin);
 			BufferedReader br = new BufferedReader(stdinreader);
@@ -441,7 +442,7 @@ public class IPCreator {
 		/* Readout method for the configuration */
 		try {
 			String line;
-			Process proc = this.runtimeenv.exec(cmdArray);
+			Process proc = SystemCommand.runCommand(this.runtimeenv, cmdArray);
 			InputStream stdin = proc.getInputStream();
 			InputStreamReader isr = new InputStreamReader(stdin);
 			BufferedReader br = new BufferedReader(isr);
