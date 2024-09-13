@@ -12,6 +12,7 @@
 package org.rifidi.emulator.reader.thingmagic.database.impl.row;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -81,7 +82,7 @@ public class DBTagIDRow implements IDBRow {
 
 	private RifidiTag tag;
 
-	private Random random = new Random();
+	private Random random = new SecureRandom();
 
 	/**
 	 * This creates a map of tag data keys (based on the way the Mercury 4,
