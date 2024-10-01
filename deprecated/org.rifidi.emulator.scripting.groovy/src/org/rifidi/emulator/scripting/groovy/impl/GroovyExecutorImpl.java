@@ -5,6 +5,7 @@ package org.rifidi.emulator.scripting.groovy.impl;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -167,11 +168,11 @@ public class GroovyExecutorImpl implements GroovyExecutor {
 			try {
 				BufferedReader input = new BufferedReader(
 						new FileReader(script));
-				String line = input.readLine();
+				String line = BoundedLineReader.readLine(input, 5_000_000);
 				StringBuilder builder = new StringBuilder();
 				while (line != null) {
 					builder.append(line);
-					line = input.readLine();
+					line = BoundedLineReader.readLine(input, 5_000_000);
 				}
 				return submitScriptAsString(builder.toString());
 			} catch (FileNotFoundException e) {

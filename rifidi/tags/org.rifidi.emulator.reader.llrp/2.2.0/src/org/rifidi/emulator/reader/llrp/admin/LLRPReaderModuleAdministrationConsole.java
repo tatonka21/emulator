@@ -1,5 +1,6 @@
 package org.rifidi.emulator.reader.llrp.admin;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -173,7 +174,7 @@ class LLRPReaderModuleAdministrationConsole implements Runnable
 	private String readSocket() {
 		String line = null;
 		try {
-			line = inStream.readLine();
+			line = BoundedLineReader.readLine(inStream, 5_000_000);
 		} catch (IOException e) {
 			// TODO Find a better way to tell that the Connection was closed
 			closeCurConnection();
