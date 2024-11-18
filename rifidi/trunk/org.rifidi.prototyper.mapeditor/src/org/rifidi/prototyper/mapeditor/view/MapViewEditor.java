@@ -3,6 +3,7 @@
  */
 package org.rifidi.prototyper.mapeditor.view;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -327,6 +328,7 @@ public class MapViewEditor extends GraphicalEditor implements
 			try {
 				InputStream is = file.getContents(false);
 				ObjectInputStream ois = new ObjectInputStream(is);
+				ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 				this.mapModel = (MapModel) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
