@@ -10,6 +10,8 @@
  */
 package org.rifidi.designer.ide.converter.editor;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +27,7 @@ public class MyResourceLocator {
 	public static URL findTheCrap(String url){
 		URL source=null;
 		try {
-			source = new URL(url);
+			source = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 		} catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -33,7 +35,7 @@ public class MyResourceLocator {
 		if(source!=null){
 			for(String extension: extensions){
 				try {
-					URL urly=new URL(source.toString()+extension);
+					URL urly=Urls.create(source.toString()+extension, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 					urly.openStream();
 					return urly;
 				} catch (MalformedURLException e) {
