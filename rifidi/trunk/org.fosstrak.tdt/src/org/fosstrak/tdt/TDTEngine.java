@@ -20,6 +20,7 @@
 
 package org.fosstrak.tdt;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -147,7 +148,7 @@ public class TDTEngine {
 			BufferedReader in = new BufferedReader(new InputStreamReader(urlcon
 					.getInputStream()));
 			String line;
-			for (; (line = in.readLine()) != null;) {
+			for (; (line = BoundedLineReader.readLine(in, 5_000_000)) != null;) {
 				if (line.endsWith(".xml")) {
 					loadEpcTagDataTranslation(unmar, new URL(scheme.toString()
 							+ line));
@@ -193,7 +194,7 @@ public class TDTEngine {
 		BufferedReader in = new BufferedReader(new InputStreamReader(urlcon
 				.getInputStream()));
 		String line;
-		for (; (line = in.readLine()) != null;) {
+		for (; (line = BoundedLineReader.readLine(in, 5_000_000)) != null;) {
 			loadEpcTagDataTranslation(unmar, TDTFrontEnd.class.getClassLoader()
 					.getResource("org/fosstrak/tdt/resources/schemes/" + line));
 		}
@@ -222,7 +223,7 @@ public class TDTEngine {
 		BufferedReader in = new BufferedReader(new InputStreamReader(urlcon
 				.getInputStream()));
 		String line;
-		for (; (line = in.readLine()) != null;) {
+		for (; (line = BoundedLineReader.readLine(in, 5_000_000)) != null;) {
 			if (line.endsWith(".xml")) {
 				loadEpcTagDataTranslation(unmar, new URL(schemes.toString()
 						+ line));
@@ -261,7 +262,7 @@ public class TDTEngine {
 			BufferedReader in = new BufferedReader(new InputStreamReader(urlcon
 					.getInputStream()));
 			String line;
-			for (; (line = in.readLine()) != null;) {
+			for (; (line = BoundedLineReader.readLine(in, 5_000_000)) != null;) {
 				if (line.endsWith(".xml")) {
 					loadEpcTagDataTranslation(unmar, new URL(schemes.toString()
 							+ line));
