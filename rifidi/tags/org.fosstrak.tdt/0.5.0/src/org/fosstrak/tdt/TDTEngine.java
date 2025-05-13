@@ -20,6 +20,8 @@
 
 package org.fosstrak.tdt;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -138,8 +140,8 @@ public class TDTEngine {
 
 		try {
 			Unmarshaller unmar = getUnmarshaller();
-			URL scheme = new URL(confdir + "/schemes/");
-			URL aux = new URL(confdir + "/auxiliary/ManagerTranslation.xml");
+			URL scheme = Urls.create(confdir + "/schemes/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
+			URL aux = Urls.create(confdir + "/auxiliary/ManagerTranslation.xml", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			Set<URL> schemes = new HashSet<URL>();
 			schemes.add(scheme);
 			URLConnection urlcon = scheme.openConnection();
@@ -149,8 +151,8 @@ public class TDTEngine {
 			String line;
 			for (; (line = in.readLine()) != null;) {
 				if (line.endsWith(".xml")) {
-					loadEpcTagDataTranslation(unmar, new URL(scheme.toString()
-							+ line));
+					loadEpcTagDataTranslation(unmar, Urls.create(scheme.toString()
+							+ line, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 				}
 			}
 			loadGEPC64Table(unmar, aux);
@@ -224,8 +226,8 @@ public class TDTEngine {
 		String line;
 		for (; (line = in.readLine()) != null;) {
 			if (line.endsWith(".xml")) {
-				loadEpcTagDataTranslation(unmar, new URL(schemes.toString()
-						+ line));
+				loadEpcTagDataTranslation(unmar, Urls.create(schemes.toString()
+						+ line, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 			}
 		}
 		loadGEPC64Table(unmar, auxiliary);
@@ -263,8 +265,8 @@ public class TDTEngine {
 			String line;
 			for (; (line = in.readLine()) != null;) {
 				if (line.endsWith(".xml")) {
-					loadEpcTagDataTranslation(unmar, new URL(schemes.toString()
-							+ line));
+					loadEpcTagDataTranslation(unmar, Urls.create(schemes.toString()
+							+ line, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 				}
 			}
 		}
