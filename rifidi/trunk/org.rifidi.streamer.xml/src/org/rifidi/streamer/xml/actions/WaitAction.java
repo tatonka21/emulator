@@ -10,6 +10,7 @@
  */
 package org.rifidi.streamer.xml.actions;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -81,7 +82,7 @@ public class WaitAction extends Action {
 	 */
 	public long getWaitTime() {
 		if (isRandom) {
-			Random r = new Random();
+			Random r = new SecureRandom();
 			Double d = r.nextDouble();
 			long temp = (maxWaitTime + 1) - minWaitTime;
 			d = d * temp;
