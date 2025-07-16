@@ -1,5 +1,6 @@
 package org.rifidi.emulator.io.comm.streamreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +26,7 @@ public class GenericCharStreamReader implements AbstractStreamReader {
 	 *This method reads the input stream and returns bytes
 	 */
 	public byte[] read() throws IOException {
-		String s = bf.readLine();
+		String s = BoundedLineReader.readLine(bf, 5_000_000);
 		if(s!=null){
 			return s.getBytes();
 		}
